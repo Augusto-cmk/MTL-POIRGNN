@@ -4,3 +4,6 @@ spektral
 keras
 matplotlib
 seaborn
+torch 
+torchvision 
+torchaudio
