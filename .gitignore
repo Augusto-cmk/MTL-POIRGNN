@@ -1,3 +1,6 @@
 # Default ignored files
 .ideia/workspace.xml
 venv
+.cache
+__pycache__/
+checkins_data

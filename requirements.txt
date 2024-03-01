@@ -7,3 +7,5 @@ seaborn
 torch 
 torchvision 
 torchaudio
+pyproj
+shapely

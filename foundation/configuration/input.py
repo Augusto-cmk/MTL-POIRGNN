@@ -1,4 +1,6 @@
-class Input:
+from foundation.abs_classes.singleton import Singleton
+
+class Input(Singleton):
 
     inputs = dict()
     def set_inputs(cls, inputs):

@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 from sklearn.preprocessing import OneHotEncoder
 from matplotlib import pyplot
-from tensorflow.keras.preprocessing.sequence import pad_sequences
+from keras.preprocessing.sequence import pad_sequences
 
 CATEGORIES = [[0, 0], [0, 1], [0, 2], [0, 3], [0, 4], [0, 5], [0, 6], [0, 7], [0, 8], [0, 9], [0, 10], [0, 11], [0, 12],
               [0, 13], [0, 14], [0, 15], [0, 16], [0, 17], [0, 18], [0, 19], [0, 20], [0, 21], [0, 22], [0, 23],
@@ -75,8 +75,6 @@ def sequence_to_x_y_v2(list_events: list, step_size):
         step = list_events[i - step_size:i]
         x.append(step)
         y.append(list_events[i + 1])
-
-    return x, y
 
     return x, y
 
@@ -302,55 +300,6 @@ def sequence_to_historical_and_current(spatial, temporal, ids, datetimes, first_
     print("terceiro: ", " set_spatial his: ", set_spatial_history[2], " spatial: ", spatial[2])
     print("quarto: ", " set_spatial his: ", set_spatial_history[3], " spatial: ", spatial[3])
     return set_spatial_history, set_temporal_history, set_ids_history
-    # set_spatial_history = []
-    # set_temporal_history = []
-    # set_ids_history = []
-    # set_sequences_to_use = []
-    #
-    # set_spatial_history.append(spatial[0])
-    # set_temporal_history.append(temporal[0])
-    # set_ids_history.append(ids[0])
-    # for i in range(1, len(spatial)):
-    #     current_datetime = datetimes[i][-1]
-    #     current_id = ids[i][-1]
-    #     sequences_to_use = []
-    #     spatial_history = np.asarray([])
-    #     temporal_history = np.asarray([])
-    #     ids_history = np.asarray([])
-    #
-    #     # It process previous sequences
-    #     for j in reversed(range(i)):
-    #         ids_sequence = ids[j]
-    #         if ids_sequence[0] != current_id:
-    #             break
-    #         spatial_sequence = spatial[j]
-    #         temporal_sequence = temporal[j]
-    #         datetimes_sequence = datetimes[j]
-    #         use_sequence = True
-    #         for datetime in [datetimes_sequence[0], datetimes_sequence[-1]]:
-    #             if datetime > current_datetime or (current_datetime - datetime).seconds > 86400:
-    #                 use_sequence = False
-    #                 break
-    #
-    #         if use_sequence:
-    #             sequences_to_use.append(j)
-    #             spatial_history = np.concatenate((spatial_history, spatial_sequence))
-    #             temporal_history = np.concatenate((temporal_history, temporal_sequence))
-    #             ids_history = np.concatenate((ids_history, ids_sequence))
-    #
-    #     if len(spatial_history) == 0 and i != 0:
-    #         spatial_history = spatial_sequence
-    #         temporal_history = temporal_sequence
-    #         ids_history = ids_sequence
-    #
-    #     set_sequences_to_use.append(sequences_to_use)
-    #     set_spatial_history.append(spatial_history)
-    #     set_temporal_history.append(temporal_history)
-    #     set_ids_history.append(ids_history)
-    #
-    # print("Final: ", "spatial his: ", set_spatial_history, " temporal his: ", set_temporal_history,
-    #       " ids his: ", set_ids_history)
-    # return set_spatial_history, set_temporal_history, set_ids_history
 
 def pad_sequences_wrap(sequences, max_lengh = 50):
 
@@ -439,11 +388,6 @@ def sequence_tuples_to_spatial_temporal_and_feature6_ndarrays(list_events: list)
         week_day.append([e[j][5] for j in range(len(e))])
         ids.append([e[j][6] for j in range(len(e))])
 
-    # print("Maior country: ", max(np.array(country).flatten()))
-    # print("Maior distance: ", max(np.array(distance).flatten()))
-    # print("Maior duration: ", max(np.array(duration).flatten()))
-    # print("Maior week day: ", max(np.array(week_day).flatten()))
-
     return [spatial, temporal, country, distance, duration, week_day, ids]
 
 def sequence_tuples_to_spatial_temporal_and_feature7_ndarrays(list_events: list):
@@ -466,10 +410,6 @@ def sequence_tuples_to_spatial_temporal_and_feature7_ndarrays(list_events: list)
         ids.append([e[j][6] for j in range(len(e))])
         poi.append([e[j][7] for j in range(len(e))])
 
-    # print("Maior country: ", max(np.array(country).flatten()))
-    # print("Maior distance: ", max(np.array(distance).flatten()))
-    # print("Maior duration: ", max(np.array(duration).flatten()))
-    # print("Maior week day: ", max(np.array(week_day).flatten()))
 
     return [spatial, temporal, country, distance, duration, week_day, ids, poi]
 
@@ -495,13 +435,6 @@ def sequence_tuples_to_spatial_temporal_and_feature8_ndarrays(list_events: list)
         poi.append([e[j][7] for j in range(len(e))])
         month.append([e[j][8] for j in range(len(e))])
 
-    # print("Maior country: ", max(np.array(country).flatten()))
-    # print("Maior distance: ", max(np.array(distance).flatten()))
-    # print("Maior duration: ", max(np.array(duration).flatten()))
-    # print("Maior week day: ", max(np.array(week_day).flatten()))
-    # print("maior poi: ", max(np.array(poi).flatten()))
-    # print("Maior mes de: ", max(np.array(month).flatten()))
-
     return [spatial, temporal, country, distance, duration, week_day, ids, poi, month]
 
 def plot_history_metrics(h: pd.DataFrame, metrics_names: list, figure_dir, show=False):
@@ -520,10 +453,6 @@ def plot_history_metrics(h: pd.DataFrame, metrics_names: list, figure_dir, show=
             pyplot.show()
 
 def save_report(report_name, n_tests, epochs, report: dict, dir):
-    # f = open(dir + report_name, 'w')
-    # f.write(str(report))
-    # f.close()
-
     df = pd.DataFrame(report)
     df.to_csv(dir + report_name + "_" + str(n_tests) + ".csv", index_label="metric")
 

@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from torch.nn.init import constant_
-from spektral.layers.convolutional import GCNConv
+from spektral.layers.convolutional import GCNConv # Utilizar o pythorch geometric
 
 class CamadaNeural(nn.Module):
     def __init__(self, weights, use_entropy, n_classes, activation='softmax'):
